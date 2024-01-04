@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris</title>
+    <style>
+        body {
+            background-color: #264653;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        main {
+            display: flex;
+            background-color: #f4a261;
+            max-width: 1080px;
+            width: 100%;
+            justify-content: center;
+            align-items: center; 
+            height: 100vh;
+            margin: 0;
+            border-radius: 8px;
+        }
+        #screen {
+            border: 8px solid #2a9d8f;
+            border-radius: 4px;
+        }
+        #score-container {
+            display: flex;
+            flex-direction: column;
+            border: 8px solid #2a9d8f;
+            border-radius: 4px;
+            background-color: #264653;
+            padding: 8px 24px;
+            justify-content: center;
+            align-items: center; 
+            margin: 0px 16px;
+        }
+        #score-title {
+            color: #E76F51;
+            font-size: 24px;
+        }
+        #score-value {
+            font-size: 24px;
+            color: #E9C46A;
+        }
+    </style>
+</head>
+<body>
+        <main>
+            <canvas id="screen" width="350" height="700"></canvas>
+            <div id="informations-display">
+                <div id="score-container">
+                    <strong id="score-title">SCORE:</strong> 
+                    <strong id="score-value">3002</strong>
+                </div>
+            </div>
+        </main>
+        <script src="./pieces.js"></script>
+        <script src="./game.js"></script>
+</body>
+</html>
