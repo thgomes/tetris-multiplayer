@@ -27,7 +27,6 @@ function createGame() {
     KeyD: movePieceRight,
     KeyR: rotatePiece,
   };
-
   function movePieceDown() {
     for (block of state.droppingPiece.blocks) {
       if ((block.positionY + 1) * CELL_SIZE >= CANVA_HEIGHT) {
@@ -57,7 +56,6 @@ function createGame() {
         block.positionY
       );
       if (!coordenatesAvailable) {
-        pieceDropFinish();
         return;
       }
     }
@@ -70,14 +68,13 @@ function createGame() {
       if ((block.positionX - 1) * CELL_SIZE < 0) {
         return;
       }
-    }
-    const coordenatesAvailable = checkCoordenatesDisponibility(
-      block.positionX - 1,
-      block.positionY
-    );
-    if (!coordenatesAvailable) {
-      pieceDropFinish();
-      return;
+      const coordenatesAvailable = checkCoordenatesDisponibility(
+        block.positionX - 1,
+        block.positionY
+      );
+      if (!coordenatesAvailable) {
+        return;
+      }
     }
     for (block of state.droppingPiece.blocks) {
       block.positionX -= 1;
@@ -112,7 +109,6 @@ function createGame() {
       block.positionY = center.y - (x - center.x);
     }
   }
-
   function movePiece(command) {
     const keyPressed = keyMap[command.keyPressed];
     if (keyPressed) {
