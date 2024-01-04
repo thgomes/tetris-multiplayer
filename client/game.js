@@ -105,6 +105,19 @@ function createGame() {
     for (const block of state.droppingPiece.blocks) {
       const x = block.positionX;
       const y = block.positionY;
+      const newX = center.x + (y - center.y);
+      const newY = center.y - (x - center.x);
+      if (newX < 0 || newX > 9 || newY > 19) {
+        return;
+      }
+      const coordenatesAvailable = checkCoordenatesDisponibility(newX, newY);
+      if (!coordenatesAvailable) {
+        return;
+      }
+    }
+    for (const block of state.droppingPiece.blocks) {
+      const x = block.positionX;
+      const y = block.positionY;
       block.positionX = center.x + (y - center.y);
       block.positionY = center.y - (x - center.x);
     }
