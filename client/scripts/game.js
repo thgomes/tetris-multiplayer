@@ -116,8 +116,47 @@ function createGame() {
     const keyPressed = keyMap[command.keyPressed];
     if (keyPressed) {
       keyPressed();
-    }
+  function removeBlocksByRow(y) {
+    state.droppedBlocks = state.droppedBlocks.filter(
+      (block) => block.positionY != y
+    );
+    state.droppedBlocks = state.droppedBlocks.map((block) => {
+      if (block.positionY <= y - 1) {
+        return {
+          ...block,
+          positionY: block.positionY + 1,
+        };
+      }
+      return block;
+    });
   }
+  function calculatePoints() {
+    const blocksPerRow = Array.from({ length: 20 }, () => 0);
+    for (block of state.droppedBlocks) {
+      blocksPerRow[block.positionY]++;
+    }
+    let removedLines = 0;
+    blocksPerRow.forEach((count, y) => {
+      if (count > 9) {
+        removeBlocksByRow(y);
+        removedLines++;
+      }
+    });
+    if (removedLines == 0) {
+      return;
+    }
+    const pointsTable = {
+      1: 100,
+      2: 400,
+      3: 1000,
+      4: 5000,
+    };
+    if (!pointsTable[`${removedLines}`]) {
+      return;
+    }
+    state.score += pointsTable[removedLines];
+  }
+
   function pieceDropFinish() {
     state.droppedBlocks.push(...state.droppingPiece.blocks);
     state.droppingPiece = state.nextPiece;
