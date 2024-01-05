@@ -9,6 +9,7 @@ function createScreen(screenElementId, gameState) {
     renderBlocks(gameState.droppedBlocks);
     renderPiece(gameState.droppingPiece);
     requestAnimationFrame(renderScreen);
+    displayScore();
   }
   function renderBoard() {
     const ROWS = 20;
@@ -50,6 +51,14 @@ function createScreen(screenElementId, gameState) {
   }
   function renderPiece(piece) {
     renderBlocks(piece.blocks);
+  }
+  function displayScore() {
+    console.log(gameState.score);
+    for (const scoreDisplay of document.getElementsByClassName(
+      "singleplayer-score"
+    )) {
+      scoreDisplay.innerText = `${gameState.score}`;
+    }
   }
   return {
     renderScreen,
