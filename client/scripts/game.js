@@ -16,6 +16,7 @@ function createGame() {
     ArrowRight: movePieceRight,
     KeyD: movePieceRight,
     KeyR: rotatePiece,
+    Space: pauseAndUnpause,
   };
   function movePieceDown() {
     for (block of state.droppingPiece.blocks) {
@@ -114,8 +115,15 @@ function createGame() {
   }
   function movePiece(command) {
     const keyPressed = keyMap[command.keyPressed];
-    if (keyPressed) {
-      keyPressed();
+    if (!keyPressed) {
+      return;
+    }
+    console.log(command.keyPressed);
+    if (state.isPaused && command.keyPressed != "Space") {
+      return;
+    }
+    keyPressed();
+  }
   function removeBlocksByRow(y) {
     state.droppedBlocks = state.droppedBlocks.filter(
       (block) => block.positionY != y
@@ -159,15 +167,22 @@ function createGame() {
 
   function pieceDropFinish() {
     state.droppedBlocks.push(...state.droppingPiece.blocks);
+    calculatePoints();
     state.droppingPiece = state.nextPiece;
     state.nextPiece = generateRandomPiece();
   }
   function dropPieces() {
-    movePieceDown();
+    if (!state.isPaused) {
+      movePieceDown();
+    }
     setTimeout(dropPieces, 1000);
   }
-  function pauseGame() {
-    state.pauseGame = true;
+  function pauseAndUnpause() {
+    if (state.isPaused) {
+      state.isPaused = false;
+    } else {
+      state.isPaused = true;
+    }
   }
   return {
     state,

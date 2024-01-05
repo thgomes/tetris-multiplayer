@@ -1,5 +1,3 @@
-gameType = "SINGLE-PLAYER";
-
 const singlePlayerButtonListener = createSingleplayerButtonListener();
 singlePlayerButtonListener.subscribe(singleplayerGameHandler);
 
