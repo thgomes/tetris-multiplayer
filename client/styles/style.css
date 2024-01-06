@@ -83,11 +83,11 @@ button:hover{
     border-color: #2a9d8f;
 }
 
-#gameover-panel  {
+#game-over-panel  {
     display: none;
 }
 
-#gameover-panel .message {
+#game-over-panel .message {
     color: #2a9d8f;
     font-size: 40px;
     font-weight: bold;

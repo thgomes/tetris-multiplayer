@@ -1,5 +1,6 @@
-function createGame() {
+function createGame(gamesCount) {
   let state = {
+    gameId: gamesCount,
     score: 0,
     level: 1,
     nextPiece: generateRandomPiece(),
@@ -7,6 +8,8 @@ function createGame() {
     droppedBlocks: [],
     isMultiplayer: false,
     isPaused: false,
+    isGameOver: false,
+    finish: false,
   };
   const keyMap = {
     ArrowDown: movePieceDown,
@@ -118,7 +121,6 @@ function createGame() {
     if (!keyPressed) {
       return;
     }
-    console.log(command.keyPressed);
     if (state.isPaused && command.keyPressed != "Space") {
       return;
     }
@@ -138,10 +140,18 @@ function createGame() {
       return block;
     });
   }
+  function gameOver() {
+    state.isPaused = true;
+    state.isGameOver = true;
+  }
   function calculatePoints() {
     const blocksPerRow = Array.from({ length: 20 }, () => 0);
     for (block of state.droppedBlocks) {
       blocksPerRow[block.positionY]++;
+      if (block.positionY <= 0) {
+        gameOver();
+        return;
+      }
     }
     let removedLines = 0;
     blocksPerRow.forEach((count, y) => {
@@ -175,7 +185,10 @@ function createGame() {
     if (!state.isPaused) {
       movePieceDown();
     }
-    setTimeout(dropPieces, 1000);
+    const timeoutId = setTimeout(dropPieces, 1000);
+    if (state.finish) {
+      clearTimeout(timeoutId);
+    }
   }
   function pauseAndUnpause() {
     if (state.isPaused) {

@@ -8,8 +8,12 @@ function createScreen(screenElementId, gameState) {
     renderBoard();
     renderBlocks(gameState.droppedBlocks);
     renderPiece(gameState.droppingPiece);
-    requestAnimationFrame(renderScreen);
+    const animationId = requestAnimationFrame(renderScreen);
     displayScore();
+    renderPanels();
+    if (gameState.finish) {
+      cancelAnimationFrame(animationId);
+    }
   }
   function renderBoard() {
     const ROWS = 20;
@@ -52,8 +56,17 @@ function createScreen(screenElementId, gameState) {
   function renderPiece(piece) {
     renderBlocks(piece.blocks);
   }
+  function renderPanels() {
+    if (gameState.isGameOver) {
+      document.getElementById("game-over-panel").style.display = "flex";
+      return;
+    }
+    if (gameState.isPaused) {
+      return;
+    }
+    document.getElementById("game-over-panel").style.display = "none";
+  }
   function displayScore() {
-    console.log(gameState.score);
     for (const scoreDisplay of document.getElementsByClassName(
       "singleplayer-score"
     )) {

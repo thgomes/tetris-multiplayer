@@ -1,7 +1,10 @@
 function createKeyboardListener() {
-  const observers = [];
+  let observers = [];
   function subscribe(observerHandler) {
     observers.push(observerHandler);
+  }
+  function clearSubscribes() {
+    observers = [];
   }
   function notifyAll(command) {
     for (observerHandle of observers) {
@@ -17,6 +20,7 @@ function createKeyboardListener() {
   document.addEventListener("keydown", handleKeyboard);
   return {
     subscribe,
+    clearSubscribes,
   };
 }
 
