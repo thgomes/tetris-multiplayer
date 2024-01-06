@@ -1,3 +1,5 @@
+"use strict";
+
 function createGame(gamesCount) {
   let state = {
     gameId: gamesCount,
@@ -36,12 +38,12 @@ function createGame(gamesCount) {
         return;
       }
     }
-    for (block of state.droppingPiece.blocks) {
+    for (const block of state.droppingPiece.blocks) {
       block.positionY += 1;
     }
   }
   function movePieceRight() {
-    for (block of state.droppingPiece.blocks) {
+    for (const block of state.droppingPiece.blocks) {
       if ((block.positionX + 1) * CELL_SIZE >= CANVA_WIDTH) {
         return;
       }
@@ -53,12 +55,12 @@ function createGame(gamesCount) {
         return;
       }
     }
-    for (block of state.droppingPiece.blocks) {
+    for (const block of state.droppingPiece.blocks) {
       block.positionX += 1;
     }
   }
   function movePieceLeft() {
-    for (block of state.droppingPiece.blocks) {
+    for (const block of state.droppingPiece.blocks) {
       if ((block.positionX - 1) * CELL_SIZE < 0) {
         return;
       }
@@ -70,7 +72,7 @@ function createGame(gamesCount) {
         return;
       }
     }
-    for (block of state.droppingPiece.blocks) {
+    for (const block of state.droppingPiece.blocks) {
       block.positionX -= 1;
     }
   }
@@ -146,7 +148,7 @@ function createGame(gamesCount) {
   }
   function calculatePoints() {
     const blocksPerRow = Array.from({ length: 20 }, () => 0);
-    for (block of state.droppedBlocks) {
+    for (const block of state.droppedBlocks) {
       blocksPerRow[block.positionY]++;
       if (block.positionY <= 0) {
         gameOver();
@@ -174,7 +176,6 @@ function createGame(gamesCount) {
     }
     state.score += pointsTable[removedLines];
   }
-
   function pieceDropFinish() {
     state.droppedBlocks.push(...state.droppingPiece.blocks);
     calculatePoints();

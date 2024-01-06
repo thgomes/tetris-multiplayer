@@ -1,5 +1,7 @@
+"use strict";
+
 function generateRandomPiece() {
-  pieces = {
+  const pieces = {
     I: {
       blocks: [
         {
@@ -284,7 +286,7 @@ function generateRandomPiece() {
   const piecesTypes = ["I", "O", "S", "Z", "L", "J", "T"];
   const randomPieceIndex = Math.floor(Math.random() * piecesTypes.length);
   const randomPieceType = piecesTypes[randomPieceIndex];
-  piece = pieces[randomPieceType];
+  const piece = pieces[randomPieceType];
   if (piece) {
     return piece;
   }

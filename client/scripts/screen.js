@@ -1,6 +1,6 @@
+"use strict";
+
 function createScreen(screenElementId, gameState) {
-  document.getElementById("game-mode-menu").style.display = "none";
-  document.getElementById("singleplayer-game-container").style.display = "flex";
   const screen = document.getElementById(screenElementId);
   const context = screen.getContext("2d");
   function renderScreen() {

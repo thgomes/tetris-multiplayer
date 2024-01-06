@@ -1,3 +1,5 @@
+"use strict";
+
 const keyboardListener = createKeyboardListener();
 const singlePlayerButtonListener = createSingleplayerButtonListener();
 singlePlayerButtonListener.subscribe(singleplayerGameHandler);
